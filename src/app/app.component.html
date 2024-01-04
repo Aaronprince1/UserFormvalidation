@@ -1,0 +1,97 @@
+<h1>Registration Form</h1>
+<div class="container">
+  <form [formGroup]="contactForm">
+    <div class="form-group row">
+      <label class="col-2">Name:</label>
+      <div class="col-4">
+        <input class="form-control" type="text" formControlName="name">
+        <div *ngIf="(contactFormControl.name.touched || submitted) && contactFormControl.name.invalid"
+          class="alert alert-danger">
+          <div *ngIf="contactFormControl.name.errors?.required">Name is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2">Address:</label>
+      <div class="col-4">
+        <input class="form-control" type="text" formControlName="address">
+        <div *ngIf="(contactFormControl.address.touched || submitted) && contactFormControl.address.invalid"
+          class="alert alert-danger">
+          <div *ngIf="contactFormControl.address.errors?.required">Address is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2">Email:</label>
+      <div class="col-4">
+        <input class="form-control" type="text" formControlName="email">
+        <div *ngIf="(contactFormControl.email.touched || submitted) && contactFormControl.email.invalid"
+          class="alert alert-danger">
+          <div *ngIf="contactFormControl.email.errors?.required">Email is required.</div>
+          <div *ngIf="contactFormControl.email.errors?.pattern">Email must be a valid email address</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2">Mobile number:</label>
+      <div class="col-4">
+        <input class="form-control" type="text" formControlName="phone">
+        <div *ngIf="(contactFormControl.phone.touched || submitted) && contactFormControl.phone.invalid"
+          class="alert alert-danger">
+          <div *ngIf="contactFormControl.phone.errors?.required">Mobile Number is required.</div>
+          <div *ngIf="contactFormControl.phone.errors?.pattern">Please, Enter 10 digit Mobile Number.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2">Gender:</label>
+      <div class="col-4">
+        <select id="gender" formControlName="gender" class="form-control">
+          <option selected disabled>Select Gender</option>
+          <option *ngFor="let gen of genValue">{{gen}}</option>
+        </select>
+        <div *ngIf="(contactFormControl.gender.touched || submitted) && contactFormControl.gender.invalid"
+          class="alert alert-danger">
+          <div *ngIf="contactFormControl.gender.errors?.required">Select option</div>
+        </div>
+      </div>
+    </div>
+  <div>
+    <button class="btn btn-primary" *ngIf="!editButton" [disabled]="!contactForm.valid"
+    (click)="onSubmit()">Submit</button>
+  <button class="btn btn-primary" *ngIf="editButton" (click)="updateDetail(contactForm.value)">Update</button>
+  </div>
+
+  </form>
+  <hr>
+  <h2>User Details</h2>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let datass of data">
+          <td>{{datass.name}}</td>
+          <td>{{datass.address}}</td>
+          <td>{{datass.email}}</td>
+          <td>{{datass.phone}}</td>
+          <td>{{datass.gender}}</td>
+          <td>
+            <button type="button" class="btn btn-warning" (click)="editData(datass.id) "><i class="bi bi-pencil-fill"></i> Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-danger" (click)="deleteData(datass.id)"><i class="bi bi-x-square-fill"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
